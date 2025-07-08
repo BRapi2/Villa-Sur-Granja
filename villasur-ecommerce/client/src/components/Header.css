@@ -1,0 +1,121 @@
+.vs-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  height: 80px;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  position: relative;
+  z-index: 10;
+}
+
+.vs-header__left {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.vs-header__icon {
+  background: none;
+  border: none;
+  margin: 0 0.5rem;
+  cursor: pointer;
+  color: #a11d1d;
+  transition: color 0.2s;
+  font-size: 1.2rem;
+}
+.vs-header__icon:hover {
+  color: #d32f2f;
+}
+
+.vs-header__center {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.vs-header__logo {
+  height: 60px;
+  object-fit: contain;
+}
+
+.vs-header__right {
+  display: flex;
+  align-items: center;
+}
+
+.vs-header__menu {
+  position: absolute;
+  top: 70px;
+  left: 0;
+  background: #fff;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  border-radius: 8px;
+  padding: 1rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-width: 180px;
+  z-index: 100;
+}
+.vs-header__menu a {
+  color: #a11d1d;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1.1rem;
+  transition: color 0.2s;
+}
+.vs-header__menu a:hover {
+  color: #d32f2f;
+}
+
+.vs-header__search {
+  position: absolute;
+  top: 100%;
+  right: 2rem;
+  background: #fff;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  z-index: 100;
+}
+.vs-header__search input {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 0.4rem 0.8rem;
+  font-size: 1rem;
+  outline: none;
+}
+.vs-header__search button {
+  background: #a11d1d;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 0.4rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.vs-header__search button:hover {
+  background: #d32f2f;
+}
+
+@media (max-width: 600px) {
+  .vs-header {
+    padding: 0 0.5rem;
+    height: 60px;
+  }
+  .vs-header__logo {
+    height: 40px;
+  }
+  .vs-header__menu {
+    top: 50px;
+    min-width: 120px;
+    padding: 0.5rem 1rem;
+  }
+} 

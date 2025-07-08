@@ -8,6 +8,11 @@ import Register from './pages/Register';
 import Orders from './pages/Orders';
 import AdminDashboard from './pages/AdminDashboard';
 import { useAuth } from './contexts/AuthContext';
+import Header from './components/Header';
+
+// Páginas placeholder para Favoritos y Búsqueda
+const Favoritos = () => <div style={{padding: '2rem'}}>Favoritos (en construcción)</div>;
+const Buscar = () => <div style={{padding: '2rem'}}>Resultados de búsqueda (en construcción)</div>;
 
 function ProtectedRoute({ children, adminOnly }) {
   const { user } = useAuth();
@@ -18,22 +23,28 @@ function ProtectedRoute({ children, adminOnly }) {
 
 export default function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/catalog" element={<Catalog />} />
-      <Route path="/cart" element={<Cart />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
-      <Route path="/orders" element={
-        <ProtectedRoute>
-          <Orders />
-        </ProtectedRoute>
-      } />
-      <Route path="/admin/dashboard" element={
-        <ProtectedRoute adminOnly>
-          <AdminDashboard />
-        </ProtectedRoute>
-      } />
-    </Routes>
+    <>
+      <Header />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/productos" element={<Catalog />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/carrito" element={<Cart />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/orders" element={
+          <ProtectedRoute>
+            <Orders />
+          </ProtectedRoute>
+        } />
+        <Route path="/admin/dashboard" element={
+          <ProtectedRoute adminOnly>
+            <AdminDashboard />
+          </ProtectedRoute>
+        } />
+        <Route path="/favoritos" element={<Favoritos />} />
+        <Route path="/buscar" element={<Buscar />} />
+      </Routes>
+    </>
   );
 } 
