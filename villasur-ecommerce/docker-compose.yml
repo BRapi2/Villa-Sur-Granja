@@ -1,0 +1,37 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_USER: villasur
+      POSTGRES_PASSWORD: villasurpass
+      POSTGRES_DB: villasurdb
+    ports:
+      - '5432:5432'
+    volumes:
+      - db_data:/var/lib/postgresql/data
+      - ./server/init.sql:/docker-entrypoint-initdb.d/init.sql
+  api:
+    build: ./server
+    restart: always
+    environment:
+      DB_USER: villasur
+      DB_PASSWORD: villasurpass
+      DB_NAME: villasurdb
+      DB_HOST: db
+      DB_PORT: 5432
+      JWT_SECRET: supersecretkey
+    ports:
+      - '5000:5000'
+    depends_on:
+      - db
+  client:
+    build: ./client
+    restart: always
+    ports:
+      - '3000:80'
+    depends_on:
+      - api
+volumes:
+  db_data: 

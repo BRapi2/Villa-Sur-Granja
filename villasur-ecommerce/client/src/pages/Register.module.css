@@ -1,0 +1,40 @@
+.register {
+  max-width: 400px;
+  margin: 3rem auto;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  padding: 2rem;
+  text-align: center;
+}
+
+input {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+button {
+  width: 100%;
+  background: #d7263d;
+  color: #fff;
+  border: none;
+  padding: 0.75rem;
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 1rem;
+  transition: background 0.2s;
+}
+
+button:hover {
+  background: #a91d2b;
+}
+
+.error {
+  color: #d7263d;
+  font-weight: bold;
+  margin-top: 0.5rem;
+} 

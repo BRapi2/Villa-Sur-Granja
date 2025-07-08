@@ -1,0 +1,198 @@
+.admin {
+  padding: 2rem 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.flex {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+.formSection {
+  flex: 1 1 350px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  padding: 2rem 1.5rem;
+  min-width: 320px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form input,
+.form textarea {
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  resize: none;
+}
+
+.form textarea {
+  min-height: 60px;
+}
+
+.row {
+  display: flex;
+  gap: 1rem;
+}
+
+.actions {
+  display: flex;
+  gap: 1rem;
+}
+
+button {
+  background: #d7263d;
+  color: #fff;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 1rem;
+  transition: background 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 6px rgba(215,38,61,0.08);
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.cancel {
+  background: #888;
+}
+
+.cancel:hover {
+  background: #444;
+}
+
+.success {
+  color: #1bbf4c;
+  font-weight: bold;
+}
+
+.error {
+  color: #d7263d;
+  font-weight: bold;
+}
+
+.tableSection {
+  flex: 2 1 500px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  padding: 2rem 1.5rem;
+  min-width: 350px;
+  overflow-x: auto;
+}
+
+.tableWrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+.table th, .table td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+}
+
+.table th {
+  background: #f8f9fa;
+  font-weight: bold;
+}
+
+.table tr {
+  border-bottom: 1px solid #eee;
+}
+
+.table tr:last-child {
+  border-bottom: none;
+}
+
+.edit {
+  background: #1bbf4c;
+  margin-right: 0.5rem;
+}
+
+.edit:hover {
+  background: #158c36;
+}
+
+.delete {
+  background: #d7263d;
+}
+
+.delete:hover {
+  background: #a91d2b;
+}
+
+.thumb {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: 6px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+}
+
+.editing {
+  background: #fffbe6;
+}
+
+.confirmBox {
+  display: inline-block;
+  background: #fff3f3;
+  border: 1px solid #d7263d;
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  margin-left: 0.5rem;
+  font-size: 0.95rem;
+  color: #d7263d;
+  box-shadow: 0 2px 8px rgba(215,38,61,0.07);
+}
+
+.confirmBox button {
+  background: #d7263d;
+  color: #fff;
+  margin-left: 0.5rem;
+  padding: 0.3rem 0.8rem;
+  font-size: 0.95rem;
+  border-radius: 4px;
+}
+
+.confirmBox button:last-child {
+  background: #888;
+}
+
+.confirmBox button:last-child:hover {
+  background: #444;
+}
+
+@media (max-width: 900px) {
+  .flex {
+    flex-direction: column;
+  }
+  .formSection, .tableSection {
+    min-width: 0;
+    width: 100%;
+  }
+} 
