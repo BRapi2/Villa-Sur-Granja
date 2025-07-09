@@ -16,13 +16,12 @@ export default function Favorites() {
         <div className={styles.grid}>
           {favorites.map(product => (
             <div key={product.id} className={styles.card}>
-              <div style={{position:'relative'}}>
+              <div className={styles.imageWrapper}>
                 <img src={product.image_url} alt={product.name} />
                 <button
                   className={styles.favBtn}
                   onClick={() => removeFavorite(product.id)}
                   aria-label="Quitar de favoritos"
-                  style={{position:'absolute',top:8,right:8,background:'none',border:'none',cursor:'pointer',fontSize:'1.5rem'}}
                 >
                   {isFavorite(product.id) ? '❤️' : '🤍'}
                 </button>

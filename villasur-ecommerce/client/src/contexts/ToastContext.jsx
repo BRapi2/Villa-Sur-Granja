@@ -17,16 +17,17 @@ export function ToastProvider({ children }) {
         <div style={{
           position: 'fixed',
           bottom: '2rem',
-          left: '50%',
-          transform: 'translateX(-50%)',
+          right: '2rem',
+          maxWidth: '320px',
           background: '#d7263d',
           color: '#fff',
-          padding: '1rem 2rem',
+          padding: '0.75rem 1.5rem',
           borderRadius: '8px',
           boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
           zIndex: 9999,
           fontWeight: 'bold',
-          fontSize: '1.1rem',
+          fontSize: '1rem',
+          opacity: 0.97,
         }}>
           {toast}
         </div>
