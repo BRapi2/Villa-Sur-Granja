@@ -8,7 +8,7 @@ export default function Catalog() {
   const { addToCart } = useCart();
 
   useEffect(() => {
-    axios.get('/api/products').then(res => setProducts(res.data));
+    axios.get('http://localhost:5000/api/products').then(res => setProducts(res.data));
   }, []);
 
   return (
