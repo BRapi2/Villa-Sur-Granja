@@ -9,14 +9,14 @@ import './index.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <FavoritesProvider>
-      <AuthProvider>
+    <AuthProvider>
+      <FavoritesProvider>
         <CartProvider>
           <BrowserRouter>
             <App />
           </BrowserRouter>
         </CartProvider>
-      </AuthProvider>
-    </FavoritesProvider>
+      </FavoritesProvider>
+    </AuthProvider>
   </React.StrictMode>
 ); 
