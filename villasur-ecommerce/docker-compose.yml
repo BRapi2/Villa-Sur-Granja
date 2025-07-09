@@ -4,9 +4,9 @@ services:
     image: postgres:15
     restart: always
     environment:
-      POSTGRES_USER: villasur
-      POSTGRES_PASSWORD: villasurpass
-      POSTGRES_DB: villasurdb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: VillaSurDB
     ports:
       - '5432:5432'
     volumes:
@@ -16,9 +16,9 @@ services:
     build: ./server
     restart: always
     environment:
-      DB_USER: villasur
-      DB_PASSWORD: villasurpass
-      DB_NAME: villasurdb
+      DB_USER: postgres
+      DB_PASSWORD: 123456
+      DB_NAME: VillaSurDB
       DB_HOST: db
       DB_PORT: 5432
       JWT_SECRET: supersecretkey
