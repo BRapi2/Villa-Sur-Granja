@@ -13,11 +13,11 @@ export default function Footer() {
         </div>
         <div>
           <strong>Corporativo</strong>
-          <p>Correo: <a href="mailto:ventas@villasur.com">ventas@villasur.com</a></p>
+          <p>Correo: <a href="mailto:andre.chufandama@gmail.com">andre.chufandama@gmail.com</a></p>
         </div>
       </div>
       <div className={styles.copyRow}>
-        <span>© {new Date().getFullYear()} VillaSur | Todos los derechos reservados.</span>
+        <span>© Sebastian Aguilar 2025</span>
       </div>
     </footer>
   );
