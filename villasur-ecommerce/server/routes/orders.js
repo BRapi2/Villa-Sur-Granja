@@ -51,12 +51,16 @@ router.post('/', authenticateToken, async (req, res) => {
 });
 
 // Subida de comprobante de pago Yape
-router.post('/comprobante', authenticateToken, upload.single('comprobante'), async (req, res) => {
-  if (!req.file) {
+router.post('/comprobante', authenticateToken, upload.fields([
+  { name: 'comprobante', maxCount: 1 },
+  { name: 'order_id', maxCount: 1 }
+]), async (req, res) => {
+  const file = req.files && req.files.comprobante ? req.files.comprobante[0] : null;
+  const order_id = req.body.order_id;
+  const userId = req.user.id;
+  if (!file) {
     return res.status(400).json({ message: 'No se subió ningún archivo.' });
   }
-  const { order_id } = req.body;
-  const userId = req.user.id;
   if (!order_id) {
     return res.status(400).json({ message: 'Falta el ID de la orden.' });
   }
@@ -67,8 +71,8 @@ router.post('/comprobante', authenticateToken, upload.single('comprobante'), asy
       return res.status(403).json({ message: 'No tienes permiso para modificar esta orden.' });
     }
     // Actualizar la orden con la ruta del comprobante
-    await pool.query('UPDATE orders SET comprobante = $1 WHERE id = $2', [req.file.filename, order_id]);
-    res.json({ message: 'Comprobante recibido y guardado.', file: req.file.filename });
+    await pool.query('UPDATE orders SET comprobante = $1 WHERE id = $2', [file.filename, order_id]);
+    res.json({ message: 'Comprobante recibido y guardado.', file: file.filename });
   } catch (err) {
     res.status(500).json({ message: 'Error al guardar el comprobante.' });
   }
