@@ -44,4 +44,21 @@ button {
 
 button:hover {
   background: #a91d2b;
+}
+
+.imageWrapper {
+  position: relative;
+}
+
+.favBtn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.7rem;
+  z-index: 2;
+  padding: 0;
+  line-height: 1;
 } 

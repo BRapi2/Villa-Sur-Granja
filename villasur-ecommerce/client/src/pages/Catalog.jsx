@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useCart } from '../contexts/CartContext';
 import { useFavorites } from '../contexts/FavoritesContext';
+import { useToast } from '../contexts/ToastContext';
 import styles from './Catalog.module.css';
 
 export default function Catalog() {
@@ -10,6 +11,7 @@ export default function Catalog() {
   const [error, setError] = useState(null);
   const { addToCart } = useCart();
   const { addFavorite, removeFavorite, isFavorite } = useFavorites();
+  const { showToast } = useToast();
 
   useEffect(() => {
     setLoading(true);
@@ -20,6 +22,21 @@ export default function Catalog() {
       .finally(() => setLoading(false));
   }, []);
 
+  const handleAddToCart = (product) => {
+    addToCart(product);
+    showToast('Producto añadido al carrito');
+  };
+
+  const handleFavorite = (product) => {
+    if (isFavorite(product.id)) {
+      removeFavorite(product.id);
+      showToast('Producto eliminado de favoritos');
+    } else {
+      addFavorite(product);
+      showToast('Producto añadido a favoritos');
+    }
+  };
+
   return (
     <div className={styles.catalog}>
       <h2>Product Catalog</h2>
@@ -28,13 +45,12 @@ export default function Catalog() {
       <div className={styles.grid}>
         {!loading && !error && products.map(product => (
           <div key={product.id} className={styles.card}>
-            <div style={{position:'relative'}}>
+            <div className={styles.imageWrapper}>
               <img src={product.image_url} alt={product.name} />
               <button
                 className={styles.favBtn}
-                onClick={() => isFavorite(product.id) ? removeFavorite(product.id) : addFavorite(product)}
+                onClick={() => handleFavorite(product)}
                 aria-label={isFavorite(product.id) ? 'Quitar de favoritos' : 'Agregar a favoritos'}
-                style={{position:'absolute',top:8,right:8,background:'none',border:'none',cursor:'pointer',fontSize:'1.5rem'}}
               >
                 {isFavorite(product.id) ? '❤️' : '🤍'}
               </button>
@@ -45,7 +61,7 @@ export default function Catalog() {
               <span>${product.price}</span>
               <span>{product.weight}</span>
             </div>
-            <button onClick={() => addToCart(product)}>Add to Cart</button>
+            <button onClick={() => handleAddToCart(product)}>Add to Cart</button>
           </div>
         ))}
       </div>
