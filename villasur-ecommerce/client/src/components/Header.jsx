@@ -30,7 +30,7 @@ const Header = () => {
             <Link to="/" onClick={() => setShowMenu(false)}>Inicio</Link>
             <Link to="/productos" onClick={() => setShowMenu(false)}>Productos</Link>
             <Link to="/carrito" onClick={() => setShowMenu(false)}>Carrito</Link>
-            <Link to="/favoritos" onClick={() => setShowMenu(false)}>Favoritos</Link>
+            <Link to="/favorites" onClick={() => setShowMenu(false)}>Favoritos</Link>
             <Link to="/login" onClick={() => setShowMenu(false)}>Acceso</Link>
           </nav>
         )}
@@ -48,7 +48,7 @@ const Header = () => {
         <button className="vs-header__icon" onClick={() => navigate('/login')} aria-label="Usuario">
           <FaUser size={22} />
         </button>
-        <button className="vs-header__icon" onClick={() => navigate('/favoritos')} aria-label="Favoritos">
+        <button className="vs-header__icon" onClick={() => navigate('/favorites')} aria-label="Favoritos">
           <FaHeart size={22} />
         </button>
         <button className="vs-header__icon" onClick={() => navigate('/carrito')} aria-label="Carrito">
