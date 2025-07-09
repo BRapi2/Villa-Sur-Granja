@@ -4,10 +4,8 @@ import { authenticateToken, requireAdmin } from '../middleware/auth.js';
 
 const router = express.Router();
 
-// Middleware para verificar admin
-// (Eliminada la función requireAdmin aquí, ya que se importa desde middleware/auth.js)
 
-// Get all products
+// Get todos los productos
 router.get('/', async (req, res) => {
   try {
     const result = await pool.query('SELECT * FROM products ORDER BY id');
@@ -17,7 +15,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-// Get product by id
+// Get productos por id
 router.get('/:id', async (req, res) => {
   try {
     const result = await pool.query('SELECT * FROM products WHERE id = $1', [req.params.id]);
@@ -28,7 +26,7 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// Admin: Create product
+// Admin: crear producto
 router.post('/', authenticateToken, requireAdmin, async (req, res) => {
   const { name, description, price, weight, origin, image_url, stock } = req.body;
   try {
@@ -42,7 +40,7 @@ router.post('/', authenticateToken, requireAdmin, async (req, res) => {
   }
 });
 
-// Admin: Update product
+// Admin: actualizar producto
 router.put('/:id', authenticateToken, requireAdmin, async (req, res) => {
   const { name, description, price, weight, origin, image_url, stock } = req.body;
   try {
@@ -83,7 +81,7 @@ router.put('/:id/enable', requireAdmin, async (req, res) => {
   }
 });
 
-// Admin: Delete product
+// Admin: borrar producto
 router.delete('/:id', authenticateToken, requireAdmin, async (req, res) => {
   try {
     const result = await pool.query('DELETE FROM products WHERE id = $1 RETURNING *', [req.params.id]);
