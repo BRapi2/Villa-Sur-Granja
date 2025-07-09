@@ -1,5 +1,5 @@
 -- Users table
-CREATE TABLE IF NOT EXISTS users (
+CREATE TABLE users (
     id SERIAL PRIMARY KEY,
     email VARCHAR(255) UNIQUE NOT NULL,
     password_hash VARCHAR(255) NOT NULL,
@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS users (
 );
 
 -- Products table
-CREATE TABLE IF NOT EXISTS products (
+CREATE TABLE products (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     description TEXT NOT NULL,
@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS products (
 );
 
 -- Orders table
-CREATE TABLE IF NOT EXISTS orders (
+CREATE TABLE orders (
     id SERIAL PRIMARY KEY,
     user_id INTEGER REFERENCES users(id),
     created_at TIMESTAMPTZ DEFAULT NOW(),
@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS orders (
 );
 
 -- OrderItems table
-CREATE TABLE IF NOT EXISTS order_items (
+CREATE TABLE order_items (
     id SERIAL PRIMARY KEY,
     order_id INTEGER REFERENCES orders(id) ON DELETE CASCADE,
     product_id INTEGER REFERENCES products(id),
@@ -38,15 +38,19 @@ CREATE TABLE IF NOT EXISTS order_items (
 
 -- Insert sample products
 INSERT INTO products (name, description, price, weight, origin, image_url, stock) VALUES
-('Beef Ribeye', 'Premium beef ribeye steak.', 25.99, '500g', 'Argentina', 'https://example.com/ribeye.jpg', 20),
-('Pork Loin', 'Juicy pork loin, perfect for roasting.', 15.50, '1kg', 'Spain', 'https://example.com/porkloin.jpg', 30),
-('Chicken Breast', 'Boneless chicken breast.', 8.99, '400g', 'Brazil', 'https://example.com/chickenbreast.jpg', 50),
-('Lamb Chops', 'Tender lamb chops for grilling.', 22.00, '600g', 'New Zealand', 'https://example.com/lambchops.jpg', 15),
-('Sausage Mix', 'Assorted gourmet sausages.', 12.75, '700g', 'Germany', 'https://example.com/sausagemix.jpg', 40);
+('Pollo entero', 'Pollo entero fresco, ideal para asar o cocinar al horno.', 10.00, '1kg', 'Granja local', 'https://images.unsplash.com/photo-1506744038136-46273834b3fb', 20),
+('Pechuga de pollo', 'Pechuga de pollo fresca, sin hueso ni piel.', 22.00, '1kg', 'Granja local', 'https://images.unsplash.com/photo-1519864600265-abb23847ef2c', 30),
+('Muslo de pollo', 'Muslo de pollo jugoso, perfecto para guisos.', 18.00, '1kg', 'Granja local', 'https://images.unsplash.com/photo-1519864600265-abb23847ef2c', 25),
+('Pierna de pollo', 'Pierna de pollo fresca, ideal para hornear.', 18.00, '1kg', 'Granja local', 'https://images.unsplash.com/photo-1519864600265-abb23847ef2c', 25),
+('Huevo', 'Huevos frescos de corral, ricos en proteínas.', 15.00, '1kg', 'Granja local', 'https://images.unsplash.com/photo-1519864600265-abb23847ef2c', 50),
+('Queso fresco', 'Queso fresco artesanal, suave y delicioso.', 20.00, '1kg', 'Granja local', 'https://images.unsplash.com/photo-1519864600265-abb23847ef2c', 15),
+('Churrasco', 'Churrasco de res, corte jugoso para la parrilla.', 40.00, '1kg', 'Granja local', 'https://images.unsplash.com/photo-1518717758536-85ae29035b6d', 20),
+('Bistek', 'Bistek de res, tierno y sabroso.', 35.00, '1kg', 'Granja local', 'https://images.unsplash.com/photo-1518717758536-85ae29035b6d', 20),
+('Lomo fino', 'Lomo fino de res, el corte más suave y premium.', 140.00, '1kg', 'Granja local', 'https://images.unsplash.com/photo-1518717758536-85ae29035b6d', 10);
 
--- Insert admin user (password: admin123, hash generated with bcrypt)
+-- Insert admin user (password: admin123, hash generado con bcrypt)
 INSERT INTO users (email, password_hash, role) VALUES (
     'admin@villasur.com',
     '$2b$10$N9qo8uLOickgx2ZMRZo5i.ez2p1uQw1Qw1Qw1Qw1Qw1Qw1Qw1Qw1G',
     'admin'
-) ON CONFLICT (email) DO NOTHING; 
+); 

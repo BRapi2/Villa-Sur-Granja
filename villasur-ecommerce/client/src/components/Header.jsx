@@ -36,8 +36,9 @@ const Header = () => {
         )}
       </div>
       <div className="vs-header__center">
-        <Link to="/">
+        <Link to="/" className="vs-header__logo-group">
           <img src={logo} alt="Villa Sur Logo" className="vs-header__logo" />
+          <span className="vs-header__brand">Villa Sur</span>
         </Link>
       </div>
       <div className="vs-header__right">

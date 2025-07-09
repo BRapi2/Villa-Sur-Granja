@@ -105,6 +105,22 @@
   background: #d32f2f;
 }
 
+.vs-header__logo-group {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  text-decoration: none;
+}
+
+.vs-header__brand {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #222;
+  letter-spacing: 1px;
+  font-family: 'Montserrat', Arial, sans-serif;
+  user-select: none;
+}
+
 @media (max-width: 600px) {
   .vs-header {
     padding: 0 0.5rem;
@@ -117,5 +133,11 @@
     top: 50px;
     min-width: 120px;
     padding: 0.5rem 1rem;
+  }
+  .vs-header__brand {
+    font-size: 1.1rem;
+  }
+  .vs-header__logo-group {
+    gap: 0.5rem;
   }
 } 
