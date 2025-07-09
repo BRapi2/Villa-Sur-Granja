@@ -94,7 +94,7 @@ export default function CheckoutSuccess() {
         <button type="submit" disabled={uploading}>{uploading ? 'Subiendo...' : 'Subir comprobante'}</button>
       </form>
       {uploadMsg && <p>{uploadMsg}</p>}
-      <button onClick={() => navigate('/catalog')} style={{marginTop:'2rem'}}>Volver al catálogo</button>
+      <button onClick={() => navigate('/productos')} style={{marginTop:'2rem'}}>Volver al catálogo</button>
     </div>
   );
 } 
