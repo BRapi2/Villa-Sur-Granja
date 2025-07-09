@@ -9,5 +9,6 @@ FROM node:20-alpine
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
+RUN mkdir -p /app/uploads/comprobantes
 EXPOSE 5000
 CMD ["node", "index.js"] 
