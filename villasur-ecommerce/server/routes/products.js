@@ -5,19 +5,7 @@ import { authenticateToken, requireAdmin } from '../middleware/auth.js';
 const router = express.Router();
 
 // Middleware para verificar admin
-function requireAdmin(req, res, next) {
-  try {
-    const auth = req.headers.authorization;
-    if (!auth) return res.status(401).json({ message: 'No token provided' });
-    const token = auth.split(' ')[1];
-    const decoded = require('jsonwebtoken').verify(token, process.env.JWT_SECRET);
-    if (decoded.role !== 'admin') return res.status(403).json({ message: 'Forbidden' });
-    req.user = decoded;
-    next();
-  } catch (err) {
-    return res.status(401).json({ message: 'Invalid token' });
-  }
-}
+// (Eliminada la función requireAdmin aquí, ya que se importa desde middleware/auth.js)
 
 // Get all products
 router.get('/', async (req, res) => {
