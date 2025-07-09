@@ -11,6 +11,7 @@ import { useAuth } from './contexts/AuthContext';
 import Header from './components/Header';
 import CheckoutSuccess from './pages/CheckoutSuccess.jsx';
 import Favorites from './pages/Favorites.jsx';
+import Footer from './components/Footer.jsx';
 
 // Páginas placeholder para Favoritos y Búsqueda
 const Favoritos = () => <div style={{padding: '2rem'}}>Favoritos (en construcción)</div>;
@@ -49,6 +50,7 @@ export default function App() {
         <Route path="/buscar" element={<Buscar />} />
         <Route path="/favorites" element={<Favorites />} />
       </Routes>
+      <Footer />
     </>
   );
 } 
