@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import authRoutes from './routes/auth.js';
 import productRoutes from './routes/products.js';
 import orderRoutes from './routes/orders.js';
+import path from 'path';
 
 // Config env
 dotenv.config();
@@ -16,6 +17,7 @@ app.use(express.json());
 app.use('/api/auth', authRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/orders', orderRoutes);
+app.use('/uploads/comprobantes', express.static(path.join(process.cwd(), 'villasur-ecommerce/server/uploads/comprobantes')));
 
 app.get('/', (req, res) => {
   res.send('VillaSur API is running');

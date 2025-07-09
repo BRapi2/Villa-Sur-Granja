@@ -1,8 +1,23 @@
 import express from 'express';
 import pool from '../models/db.js';
 import { authenticateToken } from '../middleware/auth.js';
+import multer from 'multer';
+import path from 'path';
 
 const router = express.Router();
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, path.join(process.cwd(), 'villasur-ecommerce/server/uploads/comprobantes'));
+  },
+  filename: function (req, file, cb) {
+    // Nombre: comprobante-<order_id>-timestamp.ext
+    const ext = path.extname(file.originalname);
+    const orderId = req.body.order_id || 'unknown';
+    cb(null, `comprobante-${orderId}-${Date.now()}${ext}`);
+  }
+});
+const upload = multer({ storage });
 
 // Create order
 router.post('/', authenticateToken, async (req, res) => {
@@ -35,6 +50,30 @@ router.post('/', authenticateToken, async (req, res) => {
   }
 });
 
+// Subida de comprobante de pago Yape
+router.post('/comprobante', authenticateToken, upload.single('comprobante'), async (req, res) => {
+  if (!req.file) {
+    return res.status(400).json({ message: 'No se subió ningún archivo.' });
+  }
+  const { order_id } = req.body;
+  const userId = req.user.id;
+  if (!order_id) {
+    return res.status(400).json({ message: 'Falta el ID de la orden.' });
+  }
+  try {
+    // Verificar que la orden pertenezca al usuario
+    const orderRes = await pool.query('SELECT * FROM orders WHERE id = $1 AND user_id = $2', [order_id, userId]);
+    if (orderRes.rows.length === 0) {
+      return res.status(403).json({ message: 'No tienes permiso para modificar esta orden.' });
+    }
+    // Actualizar la orden con la ruta del comprobante
+    await pool.query('UPDATE orders SET comprobante = $1 WHERE id = $2', [req.file.filename, order_id]);
+    res.json({ message: 'Comprobante recibido y guardado.', file: req.file.filename });
+  } catch (err) {
+    res.status(500).json({ message: 'Error al guardar el comprobante.' });
+  }
+});
+
 // Get order history for user
 router.get('/history', authenticateToken, async (req, res) => {
   const userId = req.user.id;
@@ -48,6 +87,25 @@ router.get('/history', authenticateToken, async (req, res) => {
     res.json(orders);
   } catch (err) {
     res.status(500).json({ message: 'Server error' });
+  }
+});
+
+// Obtener todas las órdenes (solo admin)
+router.get('/all', authenticateToken, async (req, res) => {
+  // Verificar que el usuario sea admin
+  if (req.user.role !== 'admin') {
+    return res.status(403).json({ message: 'Solo administradores pueden ver todas las órdenes.' });
+  }
+  try {
+    const ordersRes = await pool.query(`
+      SELECT o.*, u.email as user_email
+      FROM orders o
+      JOIN users u ON o.user_id = u.id
+      ORDER BY o.created_at DESC
+    `);
+    res.json(ordersRes.rows);
+  } catch (err) {
+    res.status(500).json({ message: 'Error al obtener las órdenes.' });
   }
 });
 

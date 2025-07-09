@@ -20,6 +20,7 @@ export default function AdminDashboard() {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [confirmDelete, setConfirmDelete] = useState(null);
+  const [orders, setOrders] = useState([]);
 
   const token = localStorage.getItem('villasur_token');
 
@@ -27,8 +28,16 @@ export default function AdminDashboard() {
     axios.get('/api/products').then(res => setProducts(res.data));
   };
 
+  // Fetch orders for admin
+  const fetchOrders = () => {
+    axios.get('/api/orders/all', {
+      headers: { Authorization: `Bearer ${token}` }
+    }).then(res => setOrders(res.data));
+  };
+
   useEffect(() => {
     fetchProducts();
+    fetchOrders();
   }, []);
 
   const handleChange = e => {
@@ -149,6 +158,37 @@ export default function AdminDashboard() {
                           <button onClick={() => setConfirmDelete(null)}>No</button>
                         </div>
                       )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div className={styles.tableSection}>
+          <h3>Order List</h3>
+          <div className={styles.tableWrapper}>
+            <table className={styles.table}>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>User</th>
+                  <th>Date</th>
+                  <th>Total</th>
+                  <th>Comprobante</th>
+                </tr>
+              </thead>
+              <tbody>
+                {orders.map(order => (
+                  <tr key={order.id}>
+                    <td>{order.id}</td>
+                    <td>{order.user_email || order.user_id}</td>
+                    <td>{new Date(order.created_at).toLocaleString()}</td>
+                    <td>S/. {order.total}</td>
+                    <td>
+                      {order.comprobante ? (
+                        <a href={`/uploads/comprobantes/${order.comprobante}`} target="_blank" rel="noopener noreferrer">Ver</a>
+                      ) : '—'}
                     </td>
                   </tr>
                 ))}
