@@ -8,12 +8,11 @@ const router = express.Router();
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, path.join(process.cwd(), 'villasur-ecommerce/server/uploads/comprobantes'));
+    cb(null, path.join(process.cwd(), 'uploads/comprobantes'));
   },
   filename: function (req, file, cb) {
-    // Nombre: comprobante-<order_id>-timestamp.ext
-    const ext = path.extname(file.originalname);
     const orderId = req.body.order_id || 'unknown';
+    const ext = path.extname(file.originalname);
     cb(null, `comprobante-${orderId}-${Date.now()}${ext}`);
   }
 });
@@ -55,6 +54,7 @@ router.post('/comprobante', authenticateToken, upload.fields([
   { name: 'comprobante', maxCount: 1 },
   { name: 'order_id', maxCount: 1 }
 ]), async (req, res) => {
+  console.log('req.body:', req.body);
   const file = req.files && req.files.comprobante ? req.files.comprobante[0] : null;
   const order_id = req.body.order_id;
   const userId = req.user.id;
