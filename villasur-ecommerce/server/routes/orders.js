@@ -11,9 +11,8 @@ const storage = multer.diskStorage({
     cb(null, path.join(process.cwd(), 'uploads/comprobantes'));
   },
   filename: function (req, file, cb) {
-    const orderId = req.body.order_id || 'unknown';
     const ext = path.extname(file.originalname);
-    cb(null, `comprobante-${orderId}-${Date.now()}${ext}`);
+    cb(null, `comprobante-${Date.now()}${ext}`);
   }
 });
 const upload = multer({ storage });
