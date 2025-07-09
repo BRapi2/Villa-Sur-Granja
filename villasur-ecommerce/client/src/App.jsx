@@ -9,6 +9,7 @@ import Orders from './pages/Orders';
 import AdminDashboard from './pages/AdminDashboard';
 import { useAuth } from './contexts/AuthContext';
 import Header from './components/Header';
+import CheckoutSuccess from './pages/CheckoutSuccess.jsx';
 
 // Páginas placeholder para Favoritos y Búsqueda
 const Favoritos = () => <div style={{padding: '2rem'}}>Favoritos (en construcción)</div>;
@@ -37,6 +38,7 @@ export default function App() {
             <Orders />
           </ProtectedRoute>
         } />
+        <Route path="/checkout/success" element={<CheckoutSuccess />} />
         <Route path="/admin/dashboard" element={
           <ProtectedRoute adminOnly>
             <AdminDashboard />

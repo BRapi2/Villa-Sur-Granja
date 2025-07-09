@@ -22,13 +22,14 @@ export default function Cart() {
     setLoading(true);
     setError('');
     try {
-      await axios.post('/api/orders', {
+      const response = await axios.post('/api/orders', {
         items: cart.map(item => ({ product_id: item.id, quantity: item.quantity }))
       }, {
         headers: { Authorization: `Bearer ${localStorage.getItem('villasur_token')}` }
       });
       clearCart();
-      navigate('/orders');
+      // Redirigir a la página de éxito con el ID de la orden
+      navigate(`/checkout/success?order_id=${response.data.order_id}`);
     } catch (err) {
       setError(err.response?.data?.message || 'Checkout failed');
     } finally {
