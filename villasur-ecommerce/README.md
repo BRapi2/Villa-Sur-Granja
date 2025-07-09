@@ -1,105 +1,107 @@
 # VillaSur E-commerce
 
-VillaSur es una plataforma e-commerce moderna y robusta para la venta online de productos cárnicos. Incluye panel de administración, autenticación de usuarios, carrito de compras, gestión de pedidos y una interfaz atractiva y responsive. El proyecto está completamente containerizado con Docker y listo para producción.
+VillaSur es una plataforma de e-commerce para la venta de productos cárnicos online, lista para producción, containerizada con Docker y con integración de pagos por Yape.
 
 ---
 
-## 🚀 Estructura del Proyecto
+## 🚀 Tecnologías
+- **Frontend:** React + Vite + Nginx
+- **Backend:** Node.js + Express + PostgreSQL
+- **Base de datos:** PostgreSQL
+- **Containerización:** Docker y Docker Compose
+- **Estilos:** CSS Modules
 
+---
+
+## 📁 Estructura del Proyecto
 ```
-/villasur-ecommerce
-|-- /client         # Frontend React + Vite
-|-- /server         # Backend Node.js + Express
-|-- docker-compose.yml
-|-- README.md
+villasur-ecommerce/
+├── client/           # Frontend React
+├── server/           # Backend Node.js/Express
+├── docker-compose.yml
+└── README.md
 ```
 
 ---
 
-## 🛠️ Tecnologías Utilizadas
-- **Frontend:** React, Vite, CSS Modules
-- **Backend:** Node.js, Express, Autenticación JWT
-- **Base de Datos:** PostgreSQL
-- **Containerización:** Docker, Docker Compose
+## ⚡ Instalación y Ejecución
+**Requisitos:** Tener Docker y Docker Compose instalados.
+
+1. Clona el repositorio y entra a la carpeta raíz:
+   ```sh
+   git clone <repo-url>
+   cd villasur-ecommerce
+   ```
+2. Levanta todos los servicios:
+   ```sh
+   docker-compose up --build
+   ```
+3. Accede a la app:
+   - **Frontend:** [http://localhost:3000](http://localhost:3000)
+   - **Backend/API:** [http://localhost:5000](http://localhost:5000)
 
 ---
 
-## ⚡ Inicio Rápido
-
-**Requisitos:**
-- Docker y Docker Compose instalados
-
-**Para levantar el proyecto:**
-```bash
-docker-compose up --build
-```
-- El frontend estará disponible en [http://localhost:3000](http://localhost:3000)
-- La API backend correrá en [http://localhost:5000](http://localhost:5000)
+## 🛒 Guía de Uso para Clientes
+- **Registro:** Crea una cuenta desde la página de registro.
+- **Catálogo:** Navega y agrega productos al carrito.
+- **Carrito:** Edita cantidades y finaliza la compra.
+- **Pago:** Al finalizar, escanea el QR de Yape y sube el comprobante.
+- **Historial:** Consulta tus pedidos y su estado.
+- **Favoritos:** Marca productos como favoritos para encontrarlos fácilmente.
 
 ---
 
-## 👤 Guía de Uso para Clientes
-
-1. **Registrar una cuenta:**
-   - Ve a `/register` y crea tu cuenta.
-2. **Navegar el catálogo:**
-   - Visita `/catalog` para ver todos los productos disponibles.
-3. **Agregar al carrito:**
-   - Haz clic en "Add to Cart" en cualquier producto.
-4. **Finalizar compra:**
-   - Ve a `/cart`, revisa tus productos y haz clic en "Checkout" (requiere login).
-5. **Historial de pedidos:**
-   - Consulta tus pedidos anteriores en `/orders` (requiere login).
+## 🛠️ Guía de Uso para Administradores
+- **Acceso:** Inicia sesión con el usuario admin:
+  - Email: `admin@villasur.com`
+  - Contraseña: `admin123`
+- **Panel de administración:**
+  - Agrega, edita y elimina productos.
+  - Visualiza todas las órdenes y comprobantes subidos por los clientes.
 
 ---
 
-## 🛡️ Guía de Uso para Administradores
-
-1. **Iniciar sesión como administrador:**
-   - Usa las credenciales: `admin@villasur.com` / `admin123`
-2. **Acceder al panel de administración:**
-   - Ve a `/admin/dashboard` (solo admin)
-3. **Gestionar productos:**
-   - Agrega, edita o elimina productos desde el panel. Los cambios se reflejan instantáneamente en el catálogo.
+## 🗄️ Persistencia de archivos
+- Los comprobantes de pago subidos por los clientes se guardan en `server/uploads/comprobantes` y se mantienen aunque reinicies los contenedores.
 
 ---
 
-## 📦 Variables de Entorno
-
-Consulta `/server/.env.example` para la configuración del backend.
-
----
-
-## 📚 Documentación de la API
-
-| Endpoint                  | Método | Descripción                        | Autenticación |
-|--------------------------|--------|------------------------------------|---------------|
-| /api/auth/register       | POST   | Registrar nuevo usuario            | No            |
-| /api/auth/login          | POST   | Login y obtener JWT                | No            |
-| /api/products            | GET    | Listar todos los productos         | No            |
-| /api/products/:id        | GET    | Detalle de producto                | No            |
-| /api/orders              | POST   | Crear nuevo pedido                 | Usuario       |
-| /api/orders/history      | GET    | Historial de pedidos del usuario   | Usuario       |
-| /api/products            | POST   | Agregar nuevo producto             | Admin         |
-| /api/products/:id        | PUT    | Actualizar producto                | Admin         |
-| /api/products/:id        | DELETE | Eliminar producto                  | Admin         |
-
-- **Usuario:** Requiere JWT en el header `Authorization: Bearer <token>`
-- **Admin:** Requiere JWT y rol de administrador
+## 📝 Documentación de la API
+| Endpoint                        | Método | Descripción                                 |
+|---------------------------------|--------|---------------------------------------------|
+| /api/auth/register              | POST   | Registro de usuario                         |
+| /api/auth/login                 | POST   | Login de usuario                            |
+| /api/products                   | GET    | Listar productos                            |
+| /api/products/:id               | GET    | Detalle de producto                         |
+| /api/orders                     | POST   | Crear orden (protegido)                     |
+| /api/orders/history             | GET    | Historial de órdenes del usuario (protegido)|
+| /api/orders/comprobante         | POST   | Subir comprobante de pago (protegido)       |
+| /api/orders/all                 | GET    | Listar todas las órdenes (admin)            |
+| /api/favorites                  | GET    | Listar favoritos del usuario (protegido)    |
+| /api/favorites                  | POST   | Agregar producto a favoritos (protegido)    |
+| /api/favorites/:productId       | DELETE | Quitar producto de favoritos (protegido)    |
 
 ---
 
-## 📝 Notas
-- Todas las contraseñas se almacenan de forma segura (hash).
-- El usuario administrador se crea automáticamente al iniciar el proyecto.
-- La base de datos incluye productos de ejemplo.
+## 🔒 Seguridad y buenas prácticas
+- JWT para autenticación.
+- Roles de usuario y admin.
+- CORS habilitado.
+- Variables sensibles en `.env` (no subas tus credenciales a git).
 
 ---
 
-## 📷 Capturas de Pantalla
-> ¡Agrega aquí tus propias capturas para mostrar la interfaz y funcionalidades!
+## 📦 Notas de despliegue
+- Si usas un servidor real, configura HTTPS en Nginx.
+- Puedes mapear la carpeta de uploads para persistencia de archivos.
+- Para restaurar la base de datos, edita `server/init.sql`.
 
 ---
 
-## 🤝 Licencia
-MIT 
+## 👨‍💻 Autor
+Sebastian Aguilar
+
+---
+
+¿Dudas o problemas? ¡Abre un issue o contacta al admin! 

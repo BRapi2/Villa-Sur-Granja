@@ -26,6 +26,8 @@ services:
       - '5000:5000'
     depends_on:
       - db
+    volumes:
+      - ./server/uploads:/app/uploads
   client:
     build: ./client
     restart: always

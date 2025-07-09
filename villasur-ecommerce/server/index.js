@@ -19,7 +19,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/favorites', favoritesRoutes);
-app.use('/uploads/comprobantes', express.static(path.join(process.cwd(), 'villasur-ecommerce/server/uploads/comprobantes')));
+app.use('/uploads/comprobantes', express.static(path.join(process.cwd(), 'uploads/comprobantes')));
 
 app.get('/', (req, res) => {
   res.send('VillaSur API is running');
